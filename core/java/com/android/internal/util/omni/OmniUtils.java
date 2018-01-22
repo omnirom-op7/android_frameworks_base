@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.UserHandle;
 import android.hardware.input.InputManager;
+import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.PowerManager;
@@ -120,5 +121,12 @@ public class OmniUtils {
         if (DeviceUtils.deviceSupportsVibrator(context)) {
             ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE)).vibrate(pattern, -1);
         }
+    }
+
+    // Check to see if device is WiFi only
+    public static boolean isWifiOnly(Context context) {
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(
+                Context.CONNECTIVITY_SERVICE);
+    return (cm.isNetworkSupported(ConnectivityManager.TYPE_MOBILE) == false);
     }
 }
